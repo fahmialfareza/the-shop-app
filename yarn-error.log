@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/Cellar/node@14/14.17.6/bin/node /usr/local/bin/yarn add -D redux-devtools-extention
+  /usr/local/Cellar/node@14/14.17.6/bin/node /usr/local/bin/yarn add react-native-header-buttons
 
 PATH: 
   /usr/local/opt/mysql-client/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/fahmialfareza/.composer/vendor/bin:/opt/X11/bin:/Library/Apple/usr/bin:/Applications/Wireshark.app/Contents/MacOS:/usr/local/opt/mysql-client/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/fahmialfareza/Library/Android/sdk/platform-tools/:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/fahmialfareza/Library/Android/sdk/platform-tools/
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.npmjs.org/redux-devtools-extention: Not found
+  Error: https://registry.npmjs.org/react-native-header-buttons: Not found
       at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66988:18)
       at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140662:22)
       at Request.emit (events.js:400:28)
@@ -54,7 +54,8 @@ npm manifest:
       "redux": "^4.1.0"
     },
     "devDependencies": {
-      "@babel/core": "^7.9.0"
+      "@babel/core": "^7.9.0",
+      "redux-devtools-extension": "^2.13.9"
     },
     "private": true
   }
@@ -5211,6 +5212,11 @@ Lockfile:
       safe-buffer "~5.1.1"
       string_decoder "~1.1.1"
       util-deprecate "~1.0.1"
+  
+  redux-devtools-extension@^2.13.9:
+    version "2.13.9"
+    resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.9.tgz#6b764e8028b507adcb75a1cae790f71e6be08ae7"
+    integrity sha512-cNJ8Q/EtjhQaZ71c8I9+BPySIBVEKssbPpskBfsXqb8HJ002A3KRVHfeRzwRo6mGPqsm7XuHTqNSNeS1Khig0A==
   
   redux@^4.0.0, redux@^4.1.0:
     version "4.1.0"
