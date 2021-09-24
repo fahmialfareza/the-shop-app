@@ -54,6 +54,7 @@ const CartScreen = (props) => {
             onRemove={() => {
               dispatch(cartActions.removeFromCart(itemData.item.productId));
             }}
+            deletable
           />
         )}
       />
@@ -87,5 +88,9 @@ const styles = StyleSheet.create({
     color: Colors.accent,
   },
 });
+
+CartScreen.navigationOptions = {
+  headerTitle: 'Your Cart',
+};
 
 export default CartScreen;
