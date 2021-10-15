@@ -1,4 +1,3 @@
-import { TouchableHighlightBase } from 'react-native';
 import Product from '../../models/product';
 
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
@@ -6,7 +5,8 @@ export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const SET_PRODUCTS = 'SET_PRODUCTS';
 
-export const fetchProducts = () => async (dispatch) => {
+export const fetchProducts = () => async (dispatch, getState) => {
+  const userId = getState().auth.userId;
   try {
     const response = await fetch(
       'https://the-shop-app-66040-default-rtdb.asia-southeast1.firebasedatabase.app/products.json'
@@ -23,7 +23,7 @@ export const fetchProducts = () => async (dispatch) => {
       loadedProducts.push(
         new Product(
           key,
-          'u1',
+          resData[key].owberId,
           resData[key].title,
           resData[key].imageUrl,
           resData[key].description,
@@ -32,7 +32,11 @@ export const fetchProducts = () => async (dispatch) => {
       );
     }
 
-    dispatch({ type: SET_PRODUCTS, products: loadedProducts });
+    dispatch({
+      type: SET_PRODUCTS,
+      products: loadedProducts,
+      userProducts: loadedProducts.filter((prod) => prod.owberId === userId),
+    });
   } catch (error) {
     // send to custom analytics server
     throw error;
@@ -40,9 +44,10 @@ export const fetchProducts = () => async (dispatch) => {
 };
 
 export const deleteProduct = (productId) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
     const response = await fetch(
-      `https://the-shop-app-66040-default-rtdb.asia-southeast1.firebasedatabase.app/products/${productId}.json`,
+      `https://the-shop-app-66040-default-rtdb.asia-southeast1.firebasedatabase.app/products/${productId}.json?auth=${token}`,
       {
         method: 'DELETE',
       }
@@ -57,10 +62,12 @@ export const deleteProduct = (productId) => {
 };
 
 export const createProduct = (title, description, imageUrl, price) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     // any async code you want!
+    const token = getState().auth.token;
+    const userId = getState().auth.userId;
     const response = await fetch(
-      'https://the-shop-app-66040-default-rtdb.asia-southeast1.firebasedatabase.app/products.json',
+      `https://the-shop-app-66040-default-rtdb.asia-southeast1.firebasedatabase.app/products.json?auth=${token}`,
       {
         method: 'POST',
         headers: {
@@ -71,6 +78,7 @@ export const createProduct = (title, description, imageUrl, price) => {
           description,
           imageUrl,
           price,
+          ownerId: userId,
         }),
       }
     );
@@ -89,15 +97,17 @@ export const createProduct = (title, description, imageUrl, price) => {
         description,
         imageUrl,
         price,
+        ownerId: userId,
       },
     });
   };
 };
 
 export const updateProduct = (id, title, description, imageUrl) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
     const response = await fetch(
-      `https://the-shop-app-66040-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json`,
+      `https://the-shop-app-66040-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json?auth=${token}`,
       {
         method: 'PATCH',
         headers: {
