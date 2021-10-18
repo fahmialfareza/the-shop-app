@@ -23,7 +23,7 @@ export const fetchProducts = () => async (dispatch, getState) => {
       loadedProducts.push(
         new Product(
           key,
-          resData[key].owberId,
+          resData[key].ownerId,
           resData[key].title,
           resData[key].imageUrl,
           resData[key].description,
@@ -35,7 +35,7 @@ export const fetchProducts = () => async (dispatch, getState) => {
     dispatch({
       type: SET_PRODUCTS,
       products: loadedProducts,
-      userProducts: loadedProducts.filter((prod) => prod.owberId === userId),
+      userProducts: loadedProducts.filter((prod) => prod.ownerId === userId),
     });
   } catch (error) {
     // send to custom analytics server
