@@ -186,6 +186,7 @@ export const ShopNavigator = () => {
       }}
       screenOptions={{
         activeTintColor: Colors.primary,
+        headerShown: false,
       }}
     >
       <ShopDrawerNavigator.Screen
